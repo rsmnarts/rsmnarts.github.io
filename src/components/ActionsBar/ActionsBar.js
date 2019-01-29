@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "gatsby-Link"
+import Link from "gatsby-link"
 import screenfull from "screenfull";
 import { connect } from "react-redux";
 import { Icon, IconButton, withStyles } from "@material-ui/core";
@@ -8,16 +8,16 @@ import { Icon, IconButton, withStyles } from "@material-ui/core";
 import {
 	setNavigatorPosition,
 	setNavigatorShape,
-	setScrollTop,
+	setScrollToTop,
 	setFontSizeIncrease,
 	setCategoryFilter
 } from "../../state/store";
-import { featuredNavigator, moveNavigatorAside } from "./../../utils/shared";
+import { featureNavigator, moveNavigatorAside } from "./../../utils/shared";
 import FontSetter from "./FontSetter";
 import CategoryFilter from "./CategoryFilter";
 
 const styles = theme => ({
-	actionBar: {
+	actionsBar: {
 		position: "absolute",
 		background: theme.bars.colors.background,
 		left: 0,
@@ -45,7 +45,7 @@ const styles = theme => ({
 			left: "auto",
 			height: "100%",
 			padding: `${theme.base.sizes.linesMargin} 0`,
-			width: `${theme.bars.sizes.actionBar}px`,
+			width: `${theme.bars.sizes.actionsBar}px`,
 			"$::before": {
 				top: theme.base.sizes.linesMargin,
 				bottom: theme.base.sizes.linesMargin,
@@ -78,14 +78,14 @@ class ActionsBar extends React.Component {
 	componentDidMount() {
 		if (screenfull.enabled) {
 			screenfull.on("change", () => {
-				this.setStae({
+				this.setState({
 					fullscreen: screenfull.isFullscreen
 				});
 			});
 		}
 	}
 
-	homeOnClick = featuredNavigator.bind(this);
+	homeOnClick = featureNavigator.bind(this);
 	searchOnClick = moveNavigatorAside.bind(this);
 
 	fullscreenOnClick = () => {
@@ -94,27 +94,27 @@ class ActionsBar extends React.Component {
 	}
 	};
 
-	arrowUpOnclock = () => {
-		this.props.setScrollTop(true);
+	arrowUpOnclick = () => {
+		this.props.setScrollToTop(true);
 	};
 
 	fontSetterOnClick = val => {
-		this.props.setFontSizeIncrease(val);
+    this.props.setFontSizeIncrease(val);
 
-		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("font-size-increase". val)
-		}
-	};
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("font-size-increase", val);
+    }
+  };
 
-	CategoryFilterOnClick = val => {
+	categoryFilterOnClick = val => {
 		this.props.setCategoryFilter(val);
 	}
 
 	render() {
-		const { clasess, NavigatorPosition, navigatorShape, isWideScreen, categories } = this.props;
+		const { classes, navigatorPosition, navigatorShape, isWideScreen, categories } = this.props;
 
 		return (
-			<div className={classes.actionBar}>
+			<div className={classes.actionsBar}>
 				<div className={classes.group}>
 					<IconButton
 						aria-label="Back to list"
@@ -125,7 +125,7 @@ class ActionsBar extends React.Component {
 						<Icon>home</Icon>
 					</IconButton>
 					{((isWideScreen && navigatorShape === "open") || navigatorPosition !== "is-aside") && (
-						<CategoryFilter categories={categories} filterCategory={this.CategoryFilterOnClick} />
+						<CategoryFilter categories={categories} filterCategory={this.categoryFilterOnClick} />
 					)}
 					<IconButton
 						aria-label="Search"
@@ -148,10 +148,10 @@ class ActionsBar extends React.Component {
 							title="Fullscreen mode"
 							className={classes.button}
 						>
-							{this.state.fullscreen ? <Icon>fullscreen_exit</Icon> : <Icon>Fullscreen</Icon>}
+							{this.state.fullscreen ? <Icon>fullscreen_exit</Icon> : <Icon>fullscreen</Icon>}
 						</IconButton>
 					)}
-						<IconButton aria-label="Back to top" onClick={this.arrowUpOnclock} title="Scroll to top">
+						<IconButton aria-label="Back to top" onClick={this.arrowUpOnclick} title="Scroll to top">
 							<Icon className={classes.button} />
 						</IconButton>
 				</div>
@@ -165,11 +165,11 @@ ActionsBar.propTypes = {
 	navigatorPosition: PropTypes.string.isRequired,
 	navigatorShape: PropTypes.string.isRequired,
 	isWideScreen: PropTypes.bool.isRequired,
-	setScrollTop: PropTypes.func.isRequired,
+	setScrollToTop: PropTypes.func.isRequired,
 	setFontSizeIncrease: PropTypes.func.isRequired,
 	categories: PropTypes.array.isRequired,
 	setCategoryFilter: PropTypes.func.isRequired,
-	CategoryFilter: PropTypes.string.isRequired
+	categoryFilter: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -177,14 +177,14 @@ const mapStateToProps = (state, ownProps) => {
 		navigatorPosition: state.navigatorPosition,
 		navigatorShape: state.navigatorShape,
 		isWideScreen: state.isWideScreen,
-		CategoryFilter: state.CategoryFilter
+		categoryFilter: state.categoryFilter
 	};
 };
 
 const mapDispatchToProps = {
 	setNavigatorPosition,
 	setNavigatorShape,
-	setScrollTop,
+	setScrollToTop,
 	setFontSizeIncrease,
 	setCategoryFilter
 };

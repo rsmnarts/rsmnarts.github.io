@@ -8,9 +8,9 @@ import {
 } from "@material-ui/core";
 
 const styles= theme => ({
-	// fontSizeSetter: {
-	// 	[`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {}
-	// },
+	fontSizeSetter: {
+		[`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {}
+	},
 	open: {
 		color: theme.bars.colors.icon
 	},
@@ -25,7 +25,7 @@ const styles= theme => ({
 class CategoryFilter extends React.Component {
 	state = {
 		anchorEl: null,
-		opem: false
+		open: false
 	};
 
 	ComponentWillUnmount() {
@@ -62,17 +62,17 @@ class CategoryFilter extends React.Component {
 		const id = open ? 'simple-popper' : null;
 
 		return (
-			<nav classNames={classes.fontSizeSetter}>
+			<nav className={classes.fontSizeSetter}>
 				<IconButton
-					aria-label="Filter by Category"
-					aria-hashpopup="true"
+					aria-label="Filter by category"
+          // aria-haspopup="true"
+          onClick={this.handleClick}
+          title="Filter the list by category"
+          className={classes.open}
 					aria-describedby={id}
 					onClick={this.handleClick}
-					variant="contained"
-					title="Filter the list by category"
-					className="classes.open"
 				>
-					<Icon>FilterList</Icon>
+					<Icon>filter_list</Icon>
 				</IconButton>
 				<Popper
 					id={id} open={open}
@@ -80,22 +80,22 @@ class CategoryFilter extends React.Component {
 					transition
           className={`${classNames({ [classes.popperClose]: !open })} ${classes.popper}`}
 				>
-				<ClickAwayListener onClickAway={this.handleClose}>
-					<Grow in={open} id="cat-menu-list" style={{ transforOrigin: "0 0 0"}}>
-						<Paper>
-							<MenuList role="menu">
-								<MenuItem key="all" onClick={this.handleFiltering}>
-									all posts
-								</MenuItem>
-								{categories.map(category => (
-									<MenuItem key={category} onClick={this.handleFiltering}>
-										{category}
+					<ClickAwayListener onClickAway={this.handleClose}>
+						<Grow in={open} id="cat-menu-list" style={{ transforOrigin: "0 0 0"}}>
+							<Paper>
+								<MenuList role="menu">
+									<MenuItem key="all" onClick={this.handleFiltering}>
+										all posts
 									</MenuItem>
-								))}
-							</MenuList>
-						</Paper>
-					</Grow>
-				</ClickAwayListener>
+									{categories.map(category => (
+										<MenuItem key={category} onClick={this.handleFiltering}>
+											{category}
+										</MenuItem>
+									))}
+								</MenuList>
+							</Paper>
+						</Grow>
+					</ClickAwayListener>
 				</Popper>
 			</nav>
 		);
