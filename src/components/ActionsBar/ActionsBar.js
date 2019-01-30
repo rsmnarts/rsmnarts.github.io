@@ -152,7 +152,7 @@ class ActionsBar extends React.Component {
 						</IconButton>
 					)}
 						<IconButton aria-label="Back to top" onClick={this.arrowUpOnclick} title="Scroll to top">
-							<Icon className={classes.button} />
+							<Icon className={classes.button}>arrow_upward</Icon>
 						</IconButton>
 				</div>
 			</div>

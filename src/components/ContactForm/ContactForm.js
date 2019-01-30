@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { navigateTo } from "gatsby-link";
 import { withStyles, Button } from "@material-ui/core";
-import { textValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 
-function ecnode(data) {
+function encode(data) {
 	return Object.keys(data)
-		.map(key => ecnodeURIComponent(key)) + "=" + ecnodeURIComponent(data[key]))
+		.map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
 		.join("&");
 }
 
@@ -24,7 +24,7 @@ const styles= theme => ({
 		[`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
 			width: "47%",
 			marginLeft: "3%",
-			"$:first-child": {
+			"&:first-child": {
 				marginRight: "3%",
 				marginLeft: 0
 			}
@@ -60,11 +60,11 @@ class ContactForm extends React.Component {
 		fetch("/", {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
-			body: encode({ "form-name": "contact", ...this.sate })
+			body: encode({ "form-name": "contact", ...this.state })
 		})
 			.then(() => {
 				console.log("Form submission success");
-				navigateTo("/success");
+				navigateTo("/success");	
 			})
 			.catch(error => {
 				console.log("Form submission error:", error);
@@ -81,6 +81,65 @@ class ContactForm extends React.Component {
 		return (
 			<ValidatorForm
 				onSubmit={this.handleSubmit}
-		)
+				onError={errors => console.log(errors)}
+				name="contact"
+				ref={f => (this.form = f)}
+			>
+				{submitError && <p className={classes.submitError}>{submitError}</p>}
+				<TextValidator
+					id="name"
+					name="name"
+					label="Name"
+					value={name}
+					onChange={this.handleChange}
+					validators={["required"]}
+					errorMessages={["this filed is required"]}
+					fullWidth
+					margin="normal"
+					className={classes.singleLineInput}
+				/>
+				<TextValidator
+					id="email"
+					name="email"
+					label="Email"
+					value={email}
+					onChange={this.handleChange}
+					validators={["required", "isEmail"]}
+					errorMessages={["this filed is required", "email is not valid"]}
+					fullWidth
+					margin="normal"
+					className={classes.singleLineInput}
+				/>
+				<TextValidator
+					id="message"
+					name="message"
+					label="Message"
+					value={message}
+					onChange={this.handleChange}
+					validators={["required"]}
+					errorMessages={["this filed is required"]}
+					multiline
+					fullWidth
+					margin="normal"
+					className={classes.multilineInput}
+				/>
+        <input name="bot-field" style={{ display: "none" }} />
+				<Button
+					variant="raised"
+					color="primary"
+					size="large"
+					type="submit"
+					className={classes.submit}
+				>
+					Send
+				</Button>
+			</ValidatorForm>
+		);
 	}
 }
+
+ContactForm.propTypes = {
+	classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(ContactForm);
