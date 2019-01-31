@@ -1,104 +1,164 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withStyles, Icon } from "@material-ui/core";
+import Link from "gatsby-link";
+import { withStyles, Icon, IconButton } from "@material-ui/core";
 
-import InfoMenu from "./InfoMenu";
-import InfoHeader from "./InfoHeader";
-import InfoText from "./InfoText";
-import StackIcons from "./StackIcons";
-
-import { featureNavigator, moveNavigatorAside } from "./../../utils/shared";
-import { setNavigatorPosition, setNavigatorShape } from "../../state/store";
+import avatar from "../../images/jpg/avatar.jpg";
+import config from "../../../content/meta/config";
 
 const styles = theme => ({
-	infoBox: {
-		display: "none",
-		[`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-			display: "block",
-			color: theme.info.colors.text,
-			background: theme.info.colors.background,
-			position: "absolute",
-			left: 0,
-			top: 0,
-			width: `${theme.info.sizes.width}px`,
-			height: "100%",
-			padding: "200px 40px",
-			"&::after": {
-				content: `"`,
-				position: "absolute",
-				right: 0,
-				top: "20px",
-				bottom: "20px",
-				width: "1px",
-				borderRight: `1px solid ${theme.base.colors.lines}`
-			}
-		}
-	}
+	header: {
+    lineHeight: 1,
+    position: "relative"
+  },
+  avatarLink: {
+    willChange: "left, top",
+    float: "left",
+    display: "block",
+    position: "relative",
+    margin: "0 12px 0 0",
+    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+      margin: "0 20px 0 0"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+      position: "absolute",
+      top: "10px",
+      left: "50%",
+      marginLeft: "-30px",
+      transition: "all .5s",
+      transitionTimingFunction: "ease",
+      ".navigator-in-transition-from.navigator-is-opened &": {
+        left: "50%"
+      },
+      ".is-aside.open &": {
+        left: "8%",
+        top: "0"
+      }
+    }
+  },
+  avatar: {
+    width: "36px",
+    height: "36px",
+    borderRadius: "65% 75%",
+    border: "1px solid #ddd",
+    transition: "all .3s",
+    transitionTimingFunction: "ease",
+    display: "inline-block",
+    overflow: "hidden",
+    "& img": {
+      maxWidth: "100%"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+      width: "44px",
+      height: "44px"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+      width: "60px",
+      height: "60px"
+    },
+    "@media (hover: hover)": {
+      "&:hover": {
+        borderRadius: "75% 65%"
+      }
+    }
+  },
+  avatar: {
+    width: "36px",
+    height: "36px",
+    borderRadius: "65% 75%",
+    border: "1px solid #ddd",
+    transitiom: "all .3s",
+    transitionTimingFunction: "ease",
+    display: "inline-block",
+    overflow: "hidden",
+    "& img": {
+      maxWidth: "100%"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+      width: "44px",
+      height: "44px"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+      width: "60px",
+      height: "60px"
+    },
+    "@media (hover: hover)": {
+      "&:hover": {
+        borderRadius: "75% 65%"
+      }
+    }
+  },
+  title: {
+    willChange: "transform, left, top",
+    fontSize: `${theme.info.fonts.boxTitleSize}em`,
+    margin: 0,
+    float: "left",
+    transitionTimingFunction: "ease",
+    "& small": {
+      display: "block",
+      fontSize: ".6em",
+      marginTop: ".3em"
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+      fontSize: `${theme.info.fonts.boxTitleSizeM}em`
+    },
+    [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+      fontSize: `${theme.info.fonts.boxTitleSizeL}em`,
+      position: "absolute",
+      top: "85px",
+      textAlign: "center",
+      left: "50%",
+      transform: "translate(-50%)",
+      transition: "all .5s",
+      ".is-aside.open &": {
+        left: "60%",
+        top: `${1.9 - theme.info.fonts.boxTitleSizeL}em`,
+        textAlign: "left"
+      }
+    }
+  },
+  expand: {
+    position: "absolute",
+    top: "30px",
+    right: "-25px",
+    display: "none",
+    color: theme.info.colors.text,
+    ".is-aside.open &": {
+      display: "block"
+    }
+  }
 });
 
-class InfoBox extends React.Component {
-	avatarOnClick = featureNavigator.bind(this);
-	menulinkOnClick = moveNavigatorAside.bind(this);
+const InfoHeader = props => {
+	const { classes, avatarOnClick, expandOnClick } = props;
 
-	expandOnClick = e => {
-		this.props.setNavigatorShape("closed");
-	};
-
-	render() {
-		const { classes, parts, pages, navigatorPosition, navigatorShape } = this.props;
-		const info = parts.find(el => el.node.frontmatter.title === "info");
-
-		return (
-			<aside 
-				className={`
-					${classes.infoBox}
-					${navigatorPosition ? navigatorPosition : ""}
-					${navigatorShape ? navigatorShape : ""}
-				`}
-			>
-				{info && (
-					<InfoHeader
-						info={info}
-						avatarOnClick={this.avatarOnClick}
-						expandOnClick={this.expandOnClick}
-					/>
-				)}
-				<div className={classes.wrapper}>
-					{info && <InfoText info={info} />}
-					<Icon>social</Icon>
-					{pages && <InfoMenu pages={pages} linkOnClick={this.menulinkOnClick} />}
-					<Icon>stack</Icon>
+	return (
+		<header className={classes.header}>
+			<Link className="classes.avatarLink" onClick={avatarOnClick} to="/" title="back to Home page">
+				<div className={classes.avatar}>
+					<img src={avatar} alt="" />
 				</div>
-			</aside>
-		);
-	}
-}
+			</Link>
+			<h1 className={classes.title}>
+				{config.infoTitle.replace(/ /g, "\u00a0")}
+				<small>{config.infoTitleNote}</small>
+			</h1>
+			<IconButton
+				aria-label="Expand the box"
+				className={classes.expand}
+				onClick={expandOnClick}
+				title="Expand the box"
+			>
+				<Icon>expand_more</Icon>
+			</IconButton>
+		</header>
+	);
+};
 
-InfoBox.propTypes = {
+InfoHeader.propTypes = {
 	classes: PropTypes.object.isRequired,
-	parts: PropTypes.array.isRequired,
-	pages: PropTypes.array.isRequired,
-	navigatorPosition: PropTypes.string.isRequired,
-	navigatorShape: PropTypes.string.isRequired,
-	isWideScreen: PropTypes.bool.isRequired,
-	setNavigatorShape: PropTypes.func.isRequired
+	avatarOnClick: PropTypes.func.isRequired,
+	expandOnClick: PropTypes.func.isRequired
 };
 
-const mapsStateToProps = (state, ownProps) => {
-	return {
-		navigatorPosition: state.navigatorPosition,
-		navigatorShape: state.navigatorShape,
-		isWideScreen: state.isWideScreen
-	};
-};
-
-const mapDispatchToProps = {
-	setNavigatorPosition,
-	setNavigatorShape
-};
-
-export default connect(
-	mapsStateToProps,
-	mapDispatchToProps
-)(withStyles(styles)(InfoBox)); 
+export default withStyles(styles)(InfoHeader);

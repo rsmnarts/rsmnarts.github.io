@@ -23,9 +23,9 @@ const styles = theme => ({
 			top: 0,
 			width: `${theme.info.sizes.width}px`,
 			height: "100%",
-			padding: "200px 40px",
+			padding: "20px 40px",
 			"&::after": {
-				content: `"`,
+				content: `""`,
 				position: "absolute",
 				right: 0,
 				top: "20px",
@@ -34,7 +34,25 @@ const styles = theme => ({
 				borderRight: `1px solid ${theme.base.colors.lines}`
 			}
 		}
-	}
+	},
+  wrapper: {
+    position: "absolute",
+    top: `${theme.info.sizes.headerHeight}px`,
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    padding: "0 40px 0",
+    willChange: "opacity, bottom",
+    transition: "bottom .5s 0s",
+    opacity: 1,
+    transitionTimingFunction: "ease",
+    ".is-aside.closed &": {
+      bottom: `${theme.navigator.sizes.closedHeight}px`
+    },
+    ".moving-featured &": {
+      bottom: 0
+    }
+  }
 });
 
 class InfoBox extends React.Component {
