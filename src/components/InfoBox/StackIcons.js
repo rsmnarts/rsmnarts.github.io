@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "propt-types";
-import { withStyles } frm "@material-ui/core";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core";
 
 import AlgoliaIcon from "!svg-react-loader!../../images/svg-icons/algolia.svg?name=AlgoliaIcon";
 import ReactIcon from "!svg-react-loader!../../images/svg-icons/react.svg?name=ReactIcon";
@@ -66,7 +66,31 @@ const StackIcons = props => {
 
   return (
   	<div className={classes.stack}>
-  		
+  		<h5 className={classes.header}>built with:</h5>
+  		<div className={classes.box}>
+  			{items.map(item => {
+  				const Icon = item.comp;
+
+  				return (
+  					<a 
+  						href={item.url}
+  						key={item.name}
+  						className={classes.link}
+  						target="_blank"
+  						rel="noopener noreferrer"
+  						title={item.name}
+  					>
+  						<Icon className={classes.svg} />
+  					</a>
+  				);
+  			})}
+  		</div>
   	</div>
-  )
+  );
+};
+
+StackIcons.propTypes = {
+	classes: PropTypes.object.isRequired
 }
+
+export default withStyles(styles)(StackIcons);

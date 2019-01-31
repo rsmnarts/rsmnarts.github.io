@@ -101,4 +101,4 @@ const mapDispatchToProps = {
 export default connect(
 	mapsStateToProps,
 	mapDispatchToProps
-)(withStyles)(styles)(InfoBox));
+)(withStyles(styles)(InfoBox));

@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes frm "prop-types";
+import PropTypes from "prop-types";
 import Link from "gatsby-link";
 import { withStyles } from "@material-ui/core";
 
@@ -18,7 +18,7 @@ const styles = theme => ({
 		textTransform: "lowercase",
 		color: theme.info.colors.menuLink,
 		"&:hover": {
-			color: theme.info.color.menuLinkHover
+			color: theme.info.colors.menuLinkHover
 		}
 	}
 });

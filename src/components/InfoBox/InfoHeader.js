@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "gatsby-link";
 import { withStyles, Icon, IconButton } from "@material-ui/core";
 
 import avatar from "../../images/jpg/avatar.jpg";
@@ -63,7 +64,7 @@ const styles = theme => ({
 	},
 	title: {
 		willChange: "transform, left, top",
-		fontSize: `${theme.info.fints.boxTitleSize}em`,
+		fontSize: `${theme.info.fonts.boxTitleSize}em`,
 		margin: 0,
 		float: "left",
 		transitionTimingFunction: "ease",
@@ -113,7 +114,7 @@ const InfoHeader = props => {
 				</div>
 			</Link>
 			<h1 className={classes.title}>
-				{config.infoTitle.replace(/ /g. "\u00a0")}
+				{config.infoTitle.replace(/ /g, "\u00a0")}
 				<small>{config.infoTitleNote}</small>
 			</h1>
 			<IconButton
