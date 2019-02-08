@@ -9,26 +9,26 @@ import FacebookIcon from "!svg-react-loader!../../images/svg-icons/facebook.svg?
 import TwitterIcon from "!svg-react-loader!../../images/svg-icons/twitter.svg?name=TwitterIcon";
 
 const styles = theme => ({
-	social: {
-		display: "flex",
-		justifyContent: "center",
-		flexWrap: "warp"
-	},
-	link: {
-		display: "inline-block",
-		padding: "5px",
-		"&:hover": {
-			"& svg": {
-				fill: theme.info.colors.socialIconsHover
-			}
-		}
-	},
-	svg: {
-		width: "40px",
-		height: "40px",
-		fill: theme.info.colors.socialIcons,
-		transition: "all .5s"
-	}
+  social: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap"
+  },
+  link: {
+    display: "inline-block",
+    padding: "5px",
+    "&:hover": {
+      "& svg": {
+        fill: theme.info.colors.socialIconsHover
+      }
+    }
+  },
+  svg: {
+    width: "40px",
+    height: "40px",
+    fill: theme.info.colors.socialIcons,
+    transition: "all .5s"
+  }
 });
 
 const SocialIcons = props => {

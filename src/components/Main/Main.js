@@ -82,7 +82,7 @@ const Main = props => {
 	);
 };
 
-Main.PropTypes = {
+Main.propTypes = {
 	classes: PropTypes.object.isRequired,
 	children: PropTypes.any.isRequired
 };

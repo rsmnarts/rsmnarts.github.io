@@ -4,24 +4,24 @@ import Link from "gatsby-link";
 import { withStyles } from "@material-ui/core";
 
 const styles = theme => ({
-	infoMenu: {
-		display: "flex",
-		flexDirection: "column",
-		alignItems: "center",
-		listStyle: "none",
-		margin: 0,
-		width: "100%"
-	},
-	link: {
-		padding: ".5em",
-		fontWeight: 300,
-		textTransform: "lowercase",
-		color: theme.info.colors.menuLink,
-		"&:hover": {
-			color: theme.info.colors.menuLinkHover
-		}
-	}
-});
+  infoMenu: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    listStyle: "none",
+    margin: 0,
+    width: "100%"
+  },
+  link: {
+    padding: ".5em",
+    fontWeight: 300,
+    textTransform: "lowercase",
+    color: theme.info.colors.menuLink,
+    "&:hover": {
+      color: theme.info.colors.menuLinkHover
+    }
+  }
+});;
 
 const InfoMenu = props => {
 	const { classes, pages, linkOnClick } = props;

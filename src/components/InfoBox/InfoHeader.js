@@ -7,7 +7,7 @@ import avatar from "../../images/jpg/avatar.jpg";
 import config from "../../../content/meta/config";
 
 const styles = theme => ({
-	header: {
+  header: {
     lineHeight: 1,
     position: "relative"
   },
@@ -42,32 +42,6 @@ const styles = theme => ({
     borderRadius: "65% 75%",
     border: "1px solid #ddd",
     transition: "all .3s",
-    transitionTimingFunction: "ease",
-    display: "inline-block",
-    overflow: "hidden",
-    "& img": {
-      maxWidth: "100%"
-    },
-    [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-      width: "44px",
-      height: "44px"
-    },
-    [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-      width: "60px",
-      height: "60px"
-    },
-    "@media (hover: hover)": {
-      "&:hover": {
-        borderRadius: "75% 65%"
-      }
-    }
-  },
-  avatar: {
-    width: "36px",
-    height: "36px",
-    borderRadius: "65% 75%",
-    border: "1px solid #ddd",
-    transitiom: "all .3s",
     transitionTimingFunction: "ease",
     display: "inline-block",
     overflow: "hidden",
@@ -134,7 +108,7 @@ const InfoHeader = props => {
 
 	return (
 		<header className={classes.header}>
-			<Link className="classes.avatarLink" onClick={avatarOnClick} to="/" title="back to Home page">
+			<Link className={classes.avatarLink} onClick={avatarOnClick} to="/" title="back to Home page">
 				<div className={classes.avatar}>
 					<img src={avatar} alt="" />
 				</div>

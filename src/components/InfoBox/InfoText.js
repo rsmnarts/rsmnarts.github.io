@@ -3,20 +3,20 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core";
 
 const styles = theme => ({
-	text: {
-		display: "block",
-		fontWeight: 300,
-		lineHeight: 1.5,
-		fontSize: ".95em",
-		textAlign: "left",
-		marginBottom: ".8em",
-		"& p:first-child": {
-			marginTop: 0
-		},
-		"& p:last-child": {
-			marginBottom: 0
-		}
-	}
+  text: {
+    display: "block",
+    fontWeight: 300,
+    lineHeight: 1.5,
+    fontSize: ".95em",
+    textAlign: "left",
+    marginBottom: ".8em",
+    "& p:first-child": {
+      marginTop: 0
+    },
+    "& p:last-child": {
+      marginBottom: 0
+    }
+  }
 });
 
 const InfoText = props => {

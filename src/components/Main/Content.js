@@ -23,7 +23,7 @@ const styles = theme => ({
 			margin: "2em -1.5rem",
 			border: "none",
 			[`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-				margin: "2.5em -3.5rem";
+				margin: "2.5em -3.5rem"
 			}
 		},
 		"& h2, & h3": {
@@ -76,10 +76,10 @@ const styles = theme => ({
 			}
 		},
 		[`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-			fontSize: `${theme.main.fonts.conent.sizeM}em`
+			fontSize: `${theme.main.fonts.content.sizeM}em`
 		},
 		[`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-			fontSize: `${theme.main.fonts.conent.sizeL}em`
+			fontSize: `${theme.main.fonts.content.sizeL}em`
 		}
 	}
 });
