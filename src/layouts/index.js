@@ -8,7 +8,7 @@ import withRoot from "../withRoot";
 import theme from "../styles/theme";
 import globals from "../styles/globals";
 
-import { setFontSizeIcrease, setIsWideScreen } from "../state/store";
+import { setFontSizeIncrease, setIsWideScreen } from "../state/store";
 
 import asyncComponent from "../components/common/AsyncComponent";
 import Loading from "../components/common/Loading";
@@ -49,7 +49,7 @@ class Layout extends React.Component {
 			const inStore = this.props.fontSizeIncrease;
 
 			if (inLocal && inLocal !== inStore && inLocal >= 1 && inLocal <= 1.5) {
-				this.props.setFontSizeIcrease(inLocal);
+				this.props.setFontSizeIncrease(inLocal);
 			}
 		}
 
@@ -60,7 +60,7 @@ class Layout extends React.Component {
 		this.categories = this.props.data.posts.edges.reduce((list, edge, i) => {
 			const category = edge.node.frontmatter.category;
 
-			if (category && !list.indexOf(category)) {
+			if (category && !~list.indexOf(category)) {
 				return list.concat(edge.node.frontmatter.category);
 			} else {
 				return list;
@@ -79,7 +79,7 @@ class Layout extends React.Component {
 			<LayoutWrapper>
 				{children()}
 				<Navigator posts={data.posts.edges} />
-				<ActionBar categories={this.categories} />
+				<ActionsBar categories={this.categories} />
 				<InfoBar pages={data.pages.edges} parts={data.parts.edges} />
 				{this.props.isWideScreen && <InfoBox pages={data.pages.edges} parts={data.parts.edges} />}
 			</LayoutWrapper>
@@ -116,61 +116,61 @@ export default connect(
 
 //eslint-disable-next-line no-undef
 export const query = graphql`
-	query LayoutQuery {
-		posts: allMarkdownRemark(
-		filter: { id: { regex: "//posts//" } }
-		sort: { fields: [fields___prefix], order: DESC }
-		) {
-			edges {
-				node {
-					excerpt
-					fields {
-						slug
-						prefix
-					}
-					frontmatter {
-						title
-						subTitle
-						category
-						cover {
-							children {
-								... on ImageSharp {
-									resolutions(width: 90, height: 90) {
-										...GatsbyImageSharpResolutions_withWebp_noBase64
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		pages: allMarkdownRemark(
-			filter: { id: { regex: "//pages// " }, fields: { prefix: { regex: "/^\\d+$/"} } }
-			sort: { fields: [fields___prefix], order: ASC }
-		) {
-			edges {
-				node {
-					fields {
-						slug
-						prefix
-					}
-					frontmatter {
-						title
-						menuTitle
-					}
-				}
-			}
-		}
-		parts: allMarkdownRemark(filter: { id: { regex: "//parts//" } }) {
-			edges {
-				node {
-					html
-					frontmatter {
-						title
-					}
-				}
-			}
-		}
-	}
+	 query LayoutQuery {
+    posts: allMarkdownRemark(
+      filter: { id: { regex: "//posts//" } }
+      sort: { fields: [fields___prefix], order: DESC }
+    ) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+            prefix
+          }
+          frontmatter {
+            title
+            subTitle
+            category
+            cover {
+              children {
+                ... on ImageSharp {
+                  resolutions(width: 90, height: 90) {
+                    ...GatsbyImageSharpResolutions_withWebp_noBase64
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    pages: allMarkdownRemark(
+      filter: { id: { regex: "//pages//" }, fields: { prefix: { regex: "/^\\d+$/" } } }
+      sort: { fields: [fields___prefix], order: ASC }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+            prefix
+          }
+          frontmatter {
+            title
+            menuTitle
+          }
+        }
+      }
+    }
+    parts: allMarkdownRemark(filter: { id: { regex: "//parts//" } }) {
+      edges {
+        node {
+          html
+          frontmatter {
+            title
+          }
+        }
+      }
+    }
+  }
 `;
