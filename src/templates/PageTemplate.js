@@ -59,23 +59,23 @@ export default connect(
 //eslint-disable-next-line no-undef
 export const pageQuery = graphql`
 	query PageByPath($slug: String!) {
-    page: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      frontmatter {
-        title
-      }
-    }
-    footnote: markdownRemark(id: { regex: "/footnote/" }) {
-      id
-      html
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
-        }
-      }
-    }
-  }
+		page: markdownRemark(fields: { slug: { eq: $slug } }) {
+			id
+			html
+			frontmatter {
+				title
+			}
+		}
+		footnote: markdownRemark(id: { regex: "/footnote/" }) {
+			id
+			html
+		}
+		site {
+			siteMetadata {
+				facebook {
+					appId
+				}
+			}
+		}
+	}
 `;
