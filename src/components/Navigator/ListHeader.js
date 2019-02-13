@@ -70,7 +70,7 @@ const styles = theme => ({
 });
 
 const ListHeader = props => {
-	const { cllases, expandOnClick, categoryFilter, navigatorShape, removeFilter } = props;
+	const { classes, expandOnClick, categoryFilter, navigatorShape, removeFilter } = props;
 
 	return (
 		<header>
