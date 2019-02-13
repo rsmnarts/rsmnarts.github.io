@@ -2,4 +2,4 @@
 title: info
 ---
 
-Saya adalah seseorang Full Stack Developer. Saya itu tipe orang yang pemalas, maka dari itu saya akan mencari jalan yang termudah dan tercepat untuk melakukan suatu hal.
+I am a front-end web developer. I used to be a web designer too, but now I concentrate on the code.
